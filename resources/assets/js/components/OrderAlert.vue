@@ -26,8 +26,11 @@
         mounted(){
             Echo.channel('pizza-tracker')
             .listen('OrderStatusChanged',e =>{
-                this.showRight=true;
-                this.orderId = e.order.id;
+                if(App.user.id ==e.order.user_id)
+                {
+                    this.showRight=true;
+                    this.orderId = e.order.id;
+                }
             });
         },
     }

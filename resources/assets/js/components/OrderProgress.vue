@@ -27,7 +27,7 @@
             };
         },
         mounted(){
-            Echo.channel('pizza-tracker.'+this.id)
+            Echo.private('pizza-tracker.'+this.id)
             .listen('OrderStatusChanged',e=>{
                 this.progress= e.order.status.percent;
                 this.status = e.order.status.name;

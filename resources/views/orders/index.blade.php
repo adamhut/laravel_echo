@@ -17,10 +17,9 @@
                 @if ($orders->count() == 0)
                     <p>No orders yet.</p>
                     <a class="btn btn-success" href="{{ route('user.orders.create') }}">Order Pizza</a>
-
                 @else
 
-                    <order-alert user_id="{{ auth()->user()->id }}"></order-alert>
+                    <order-alert></order-alert>
 
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered">

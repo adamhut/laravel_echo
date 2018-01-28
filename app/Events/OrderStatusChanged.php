@@ -34,7 +34,7 @@ class OrderStatusChanged implements ShouldBroadcast
     {
         //return new Channel('pizza-tracker.'.$this->order->id);
         return [
-           'pizza-tracker.' . $this->order->id,
+           'private-pizza-tracker.' . $this->order->id,
             'pizza-tracker'
         ];
     }

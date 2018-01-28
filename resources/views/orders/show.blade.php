@@ -17,9 +17,7 @@
                     <order-progress :order="{{json_encode($order)}}">
                     </order-progress>
 
-                    <order-alert :order="{{json_encode($order)}}"></order-alert>
-
-
+                    <order-alert></order-alert>
 
                     <hr>
 
