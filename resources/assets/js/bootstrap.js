@@ -46,6 +46,8 @@ if (token) {
 import Echo from 'laravel-echo'
 
 window.Pusher = require('pusher-js');
+//import Pusher from 'pusher-js';
+
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
@@ -59,4 +61,11 @@ window.Echo.channel('orders')
         console.log('Order status with an id of ' + e.order.id + ' has been updated behind the scenes');
         console.log(e);
 
+    });
+    /*
+window.Echo.channel('pizza-order')
+    .listen('OrderStatusChanged',e=>{
+        console.log('Order status has been chagned behind the scenes');
+        console.log(e);
     })
+    */
