@@ -1,8 +1,8 @@
 <?php
 
 
-use App\Events\OrderStatusUpdated;
 use App\Events\OrderStatusChanged;
+use App\Events\OrderStatusUpdated;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +14,10 @@ use App\Events\OrderStatusChanged;
 | contains the "web" middleware group. Now create something great!
 |
 */
-class Order{
+class Order
+{
     public $id;
+
     public function __construct($id)
     {
         $this->id = $id;
@@ -25,6 +27,7 @@ Route::get('/fire', function () {
     //event(new OrderStatusChanged);
     OrderStatusChanged::dispatch();
     OrderStatusUpdated::dispatch(new Order(5));
+
     return 'fired';
 });
 Route::get('/', function () {

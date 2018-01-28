@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderStatusChanged;
 use App\Order;
 use App\Status;
 use Illuminate\Http\Request;
-use App\Events\OrderStatusChanged;
-
 
 class AdminOrdersController extends Controller
 {
@@ -25,7 +24,8 @@ class AdminOrdersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Order $order)
@@ -36,7 +36,8 @@ class AdminOrdersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Order  $order
+     * @param \App\Order $order
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Order $order)
@@ -50,8 +51,9 @@ class AdminOrdersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Order               $order
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Order $order)
