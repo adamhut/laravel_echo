@@ -10,19 +10,20 @@ class Order extends Model
      * The attributes that are mass assignable.
      *
      * @var array
-    */
+     */
     protected $fillable = [
         'user_id',
         'address',
         'size',
         'toppings',
         'instructions',
-        'status_id'
+        'status_id',
     ];
 
-    protected $with=[
-        'status'
+    protected $with = [
+        'status',
     ];
+
     /**
      * Get the customer that placed the order.
      */

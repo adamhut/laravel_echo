@@ -14,7 +14,6 @@ class UserOrdersController extends Controller
      */
     public function index()
     {
-
         $user = auth()->user();
         $orders = Order::with('status')->where('user_id', $user->id)->get();
 
@@ -34,21 +33,22 @@ class UserOrdersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
             'address' => 'required',
-            'size' => 'required',
+            'size'    => 'required',
         ]);
 
         $order = Order::create([
-            'user_id' => auth()->user()->id,
-            'address' => $request->address,
-            'size' => $request->size,
-            'toppings' => implode(', ', $request->toppings),
+            'user_id'      => auth()->user()->id,
+            'address'      => $request->address,
+            'size'         => $request->size,
+            'toppings'     => implode(', ', $request->toppings),
             'instructions' => $request->instructions,
         ]);
 
@@ -58,7 +58,8 @@ class UserOrdersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Order $order)

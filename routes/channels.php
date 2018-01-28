@@ -14,6 +14,5 @@ use App\Order;
 */
 
 Broadcast::channel('pizza-tracker.{id}', function ($user, $id) {
-
-    return (int) $user->id === (int) Order::find($id)->user_id;;
+    return (int) $user->id === (int) Order::find($id)->user_id;
 });

@@ -14,27 +14,27 @@ class StatusesTableSeeder extends Seeder
     {
         Status::truncate();
         Status::create([
-            'name' => 'Order Placed',
+            'name'    => 'Order Placed',
             'percent' => 10,
         ]);
 
         Status::create([
-            'name' => 'Prep',
+            'name'    => 'Prep',
             'percent' => 30,
         ]);
 
         Status::create([
-            'name' => 'Bake',
+            'name'    => 'Bake',
             'percent' => 50,
         ]);
 
         Status::create([
-            'name' => 'Quality Check',
+            'name'    => 'Quality Check',
             'percent' => 70,
         ]);
 
         Status::create([
-            'name' => 'Out for Delivery',
+            'name'    => 'Out for Delivery',
             'percent' => 100,
         ]);
     }
