@@ -4,6 +4,7 @@
 use App\Task;
 use App\Events\OrderStatusChanged;
 use App\Events\OrderStatusUpdated;
+use App\Events\TaskCreated;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,10 +43,12 @@ Route::get('/tasks',function(){
 });
 
 Route::post('/tasks', function () {
-    Task::forceCreate(request(['body']));
+    $task = Task::forceCreate(request(['body']));
+    //TaskCreated::dispatch($task);
+    event((new TaskCreated($task))->dontBroadcastToCurrentUser());
 });
 
-auth()->loginUsingId(1);
+//auth()->loginUsingId(1);
 
 Route::get('/update', function () {
     OrderStatusUpdated::dispatch(new Order(5));

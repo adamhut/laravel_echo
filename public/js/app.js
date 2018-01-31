@@ -58362,7 +58362,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -58429,7 +58429,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.get('/tasks').then(function (response) {
             _this.tasks = response.data;
         });
+        Echo.channel('tasks').listen('TaskCreated', function (_ref) {
+            var task = _ref.task;
+
+            _this.tasks.push(task.body);
+        });
     },
+
 
     methods: {
         addTask: function addTask() {

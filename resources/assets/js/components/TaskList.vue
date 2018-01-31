@@ -19,15 +19,20 @@
             axios.get('/tasks')
                 .then((response)=>{
                     this.tasks = response.data;
+                });
+            Echo.channel('tasks')
+                .listen('TaskCreated',({task})=>{
+                    this.tasks.push(task.body);
                 })
         },
+
         methods:{
             addTask(){
                 axios.post('/tasks',{body:this.newTask} )
                     .then((response)=>{
                         this.tasks.push(this.newTask);
                         this.newTask = '';
-                    })
+                    });
             }
 
         }
