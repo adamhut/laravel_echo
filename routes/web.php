@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Task;
 use App\Events\OrderStatusChanged;
 use App\Events\OrderStatusUpdated;
 
@@ -33,6 +34,15 @@ Route::get('/fire', function () {
 Route::get('/', function () {
     //event(new OrderStatusUpdated::class);
     return view('welcome');
+});
+
+
+Route::get('/tasks',function(){
+    return Task::latest()->pluck('body');
+});
+
+Route::post('/tasks', function () {
+    Task::forceCreate(request(['body']));
 });
 
 auth()->loginUsingId(1);
