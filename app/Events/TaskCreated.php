@@ -33,6 +33,8 @@ class TaskCreated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+
+        return new PrivateChannel('tasks');
         return new Channel('tasks');
     }
 }

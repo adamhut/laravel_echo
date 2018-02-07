@@ -12,7 +12,7 @@ trait UuidTrait
      */
     protected static function uuidField()
     {
-        return 'id';
+        //return 'id';
         return 'uuid';
     }
 

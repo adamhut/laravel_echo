@@ -48,7 +48,7 @@ Route::post('/tasks', function () {
     event((new TaskCreated($task))->dontBroadcastToCurrentUser());
 });
 
-auth()->loginUsingId('31c80361-6534-4dd3-b530-a6df0b0c4650');
+//auth()->loginUsingId('31c80361-6534-4dd3-b530-a6df0b0c4650');
 
 Route::get('/update', function () {
     OrderStatusUpdated::dispatch(new Order(5));

@@ -20,10 +20,15 @@
                 .then((response)=>{
                     this.tasks = response.data;
                 });
-            Echo.channel('tasks')
+            Echo.private('tasks')
                 .listen('TaskCreated',({task})=>{
                     this.tasks.push(task.body);
                 })
+           /* Echo.channel('tasks')
+                .listen('TaskCreated',({task})=>{
+                    this.tasks.push(task.body);
+                })
+                */
         },
 
         methods:{
