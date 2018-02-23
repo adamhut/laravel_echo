@@ -64,6 +64,10 @@
                 margin-bottom: 30px;
             }
         </style>
+         <script>
+        window.App = <?php echo json_encode(['user'=>auth()->user()]); ?> ;
+
+        </script>
     </head>
     <body>
         <div class="flex-center position-ref full-height" id="app">
