@@ -2,9 +2,10 @@
 
 
 use App\Task;
+use App\Project;
+use App\Events\TaskCreated;
 use App\Events\OrderStatusChanged;
 use App\Events\OrderStatusUpdated;
-use App\Events\TaskCreated;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,11 +33,12 @@ Route::get('/fire', function () {
 
     return 'fired';
 });
+
+auth()->loginUsingId(1);
 Route::get('/', function () {
     //event(new OrderStatusUpdated::class);
     return view('welcome');
 });
-
 
 Route::get('/tasks',function(){
     return Task::latest()->pluck('body');
@@ -47,6 +49,21 @@ Route::post('/tasks', function () {
     //TaskCreated::dispatch($task);
     event((new TaskCreated($task))->dontBroadcastToCurrentUser());
 });
+
+
+Route::get('/projects/{project}','ProjectsController@show');
+Route::get('/api/projects/{project}',function(Project $project){
+    return $project->tasks->pluck('body');
+});
+
+Route::post('/api/projects/{project}/tasks',function(Project $project){
+    $task = $project->tasks()->create(['body'=>request('body')]);
+    // event((new TaskCreated($task))->dontBroadcastToCurrentUser());
+    event(new TaskCreated($task));
+    // event((new TaskCreated($task))->dontBroadcastToCurrentUser());
+    return $task;
+});
+
 
 //auth()->loginUsingId('31c80361-6534-4dd3-b530-a6df0b0c4650');
 

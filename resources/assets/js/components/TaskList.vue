@@ -32,14 +32,14 @@
             this.channel
                 .listen('TaskCreated',({task})=>{
                     this.tasks.push(task.body);
-                    
+
                 }).listenForWhisper('typeing',this.flashActivePeer);
                 /* Echo.channel('tasks')
                 .listen('TaskCreated',({task})=>{
                     this.tasks.push(task.body);
                 })
                 */
-            
+
         },
 
         methods:{
@@ -53,7 +53,7 @@
                     this.activePeer=false;
                 },3000);
                     //alert('Somebody is typing');
-               
+
             },
             addTask(){
                 axios.post('/tasks',{body:this.newTask} )

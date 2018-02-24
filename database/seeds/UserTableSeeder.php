@@ -18,5 +18,10 @@ class UserTableSeeder extends Seeder
             'email'    => 'adamhut@gmail.com',
             'password' => '0000',
         ]);
+        factory(User::class)->create([
+            'name' => 'jeffery',
+            'email' => 'jeffery@example.com',
+            'password' => '0000',
+        ]);
     }
 }

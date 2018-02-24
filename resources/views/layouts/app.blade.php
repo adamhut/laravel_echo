@@ -15,10 +15,7 @@
             'user' => Auth::user(),
         ]) !!};
     </script>
-    <script>
-         window.App = <?= echo json_encode(['user'=>auth()->user()]); ?> ;
 
-    </script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>

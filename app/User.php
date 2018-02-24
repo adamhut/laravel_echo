@@ -2,20 +2,21 @@
 
 namespace App;
 
+use App\Project;
 use App\Traits\UuidTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable,UuidTrait;
+    use Notifiable;//,UuidTrait;
 
     /**
      * Indicates if the IDs are auto-incrementing.
      *
      * @var bool
      */
-    public $incrementing = false;
+    //public $incrementing = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -33,4 +34,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

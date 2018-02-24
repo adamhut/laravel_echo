@@ -1,6 +1,7 @@
 <?php
 
 use App\Order;
+use App\Project;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ Broadcast::channel('pizza-tracker.{id}', function ($user, $id) {
     return (int) $user->id === (int) Order::find($id)->user_id;
 });
 
-Broadcast::channel('tasks.{id}', function ($user, $id) {
-    return (int)$user->id === (int)Order::find($id)->user_id;
+Broadcast::channel('tasks.{project}', function ($user,Project $project) {
+    return $project->participants->contains($user);
+
+
 });

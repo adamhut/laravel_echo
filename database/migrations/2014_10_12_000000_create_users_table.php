@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->uuid('uuid');
+            //$table->uuid('uuid');
             //$table->uuid('id');
             //$table->primary('id');
         });

@@ -15,6 +15,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 Vue.component('task-list', require('./components/TaskList.vue'));
+Vue.component('project-task-list', require('./components/ProjectTaskList.vue'));
 Vue.component('order-progress', require('./components/OrderProgress.vue'));
 Vue.component('order-alert', require('./components/OrderAlert.vue'));
 Vue.component('order-notifications', require('./components/OrderNotifications.vue'));
