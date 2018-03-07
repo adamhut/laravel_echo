@@ -1,15 +1,27 @@
 <template>
-    <div>
-        <h2 v-text="project.name + ' Family'"></h2>
-        <ul class="list-group">
-            <li class="list-group-item" v-for="task in project.tasks" v-text="task.body"></li>
-        </ul>
-        <div class="form-group">
-            <input class="form-control" type="text" v-model="newTask" @blur="save" @keydown="tapPeers">
-        </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div>
+                <h2 v-text="project.name + ' Family'"></h2>
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="task in project.tasks" v-text="task.body"></li>
+                </ul>
+                <div class="form-group">
+                    <input class="form-control" type="text" v-model="newTask" @blur="save" @keydown="tapPeers">
+                </div>
 
-        <span v-if="activePeer" v-text="activePeer.name+' is Typing...'"></span>
+                <span v-if="activePeer" v-text="activePeer.name+' is Typing...'"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h4>active participants</h4>
+            
+            <ul>
+                <li v-for="participant in participants" v-text="participant.name"> </li>
+            </ul>
+        </div>
     </div>
+    
 </template>
 
 <script>
@@ -21,11 +33,13 @@
                 newTask:'',
                 activePeer:false,
                 typingTimer:false,
+                participants:[],
             }
         },
         computed: {
             channel() {
-                return window.Echo.private('tasks.'+this.project.id);
+                //return window.Echo.private('tasks.'+this.project.id);
+                return window.Echo.join('tasks.'+this.project.id);
             }
         },
         created(){
@@ -34,10 +48,29 @@
                     console.log(response);
                     //this.project.tasks = response.data;
                 });
-            this.channel.listen('TaskCreated',({task})=>{
-                //console.log(e);
-                this.project.tasks.push(task);
-            }).listenForWhisper('typing',this.flashActivePeer);
+
+            this.channel
+                .here(user=>{
+                    this.participants=user;
+                    console.log('here');                    
+                    console.log(user);
+                })
+                .joining(user=>{
+                    this.participants.push(user);
+                    console.log('joining');                    
+                    console.log(user);
+                }).leaving(user=>{
+                    
+                    this.participants.splice(this.participants.indexOf(user),1);
+                    console.log('leaving');
+                    
+                    console.log(user);
+                })
+                .listen('TaskCreated',({task})=>{
+                    //console.log(e);
+                    this.project.tasks.push(task);
+                })
+                .listenForWhisper('typing',this.flashActivePeer);
 
 
         },

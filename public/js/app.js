@@ -58602,6 +58602,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['dataProject'],
@@ -58610,13 +58622,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             project: this.dataProject,
             newTask: '',
             activePeer: false,
-            typingTimer: false
+            typingTimer: false,
+            participants: []
         };
     },
 
     computed: {
         channel: function channel() {
-            return window.Echo.private('tasks.' + this.project.id);
+            //return window.Echo.private('tasks.'+this.project.id);
+            return window.Echo.join('tasks.' + this.project.id);
         }
     },
     created: function created() {
@@ -58626,7 +58640,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(response);
             //this.project.tasks = response.data;
         });
-        this.channel.listen('TaskCreated', function (_ref) {
+
+        this.channel.here(function (user) {
+            _this.participants = user;
+            console.log('here');
+            console.log(user);
+        }).joining(function (user) {
+            _this.participants.push(user);
+            console.log('joining');
+            console.log(user);
+        }).leaving(function (user) {
+
+            _this.participants.splice(_this.participants.indexOf(user), 1);
+            console.log('leaving');
+
+            console.log(user);
+        }).listen('TaskCreated', function (_ref) {
             var task = _ref.task;
 
             //console.log(e);
@@ -58676,55 +58705,72 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h2", {
-      domProps: { textContent: _vm._s(_vm.project.name + " Family") }
-    }),
-    _vm._v(" "),
-    _c(
-      "ul",
-      { staticClass: "list-group" },
-      _vm._l(_vm.project.tasks, function(task) {
-        return _c("li", {
-          staticClass: "list-group-item",
-          domProps: { textContent: _vm._s(task.body) }
-        })
-      })
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.newTask,
-            expression: "newTask"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: { type: "text" },
-        domProps: { value: _vm.newTask },
-        on: {
-          blur: _vm.save,
-          keydown: _vm.tapPeers,
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-8" }, [
+      _c("div", [
+        _c("h2", {
+          domProps: { textContent: _vm._s(_vm.project.name + " Family") }
+        }),
+        _vm._v(" "),
+        _c(
+          "ul",
+          { staticClass: "list-group" },
+          _vm._l(_vm.project.tasks, function(task) {
+            return _c("li", {
+              staticClass: "list-group-item",
+              domProps: { textContent: _vm._s(task.body) }
+            })
+          })
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newTask,
+                expression: "newTask"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.newTask },
+            on: {
+              blur: _vm.save,
+              keydown: _vm.tapPeers,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.newTask = $event.target.value
+              }
             }
-            _vm.newTask = $event.target.value
-          }
-        }
-      })
+          })
+        ]),
+        _vm._v(" "),
+        _vm.activePeer
+          ? _c("span", {
+              domProps: {
+                textContent: _vm._s(_vm.activePeer.name + " is Typing...")
+              }
+            })
+          : _vm._e()
+      ])
     ]),
     _vm._v(" "),
-    _vm.activePeer
-      ? _c("span", {
-          domProps: {
-            textContent: _vm._s(_vm.activePeer.name + " is Typing...")
-          }
+    _c("div", { staticClass: "col-md-4" }, [
+      _c("h4", [_vm._v("active participants")]),
+      _vm._v(" "),
+      _c(
+        "ul",
+        _vm._l(_vm.participants, function(participant) {
+          return _c("li", {
+            domProps: { textContent: _vm._s(participant.name) }
+          })
         })
-      : _vm._e()
+      )
+    ])
   ])
 }
 var staticRenderFns = []

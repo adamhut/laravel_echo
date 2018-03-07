@@ -34,7 +34,7 @@ Route::get('/fire', function () {
     return 'fired';
 });
 
-auth()->loginUsingId(1);
+//auth()->loginUsingId(2);
 Route::get('/', function () {
     //event(new OrderStatusUpdated::class);
     return view('welcome');

@@ -19,7 +19,10 @@ Broadcast::channel('pizza-tracker.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('tasks.{project}', function ($user,Project $project) {
+    if($project->participants->contains($user))
+    {
+        return ['name'=>$user->name];
+    }
+    
     return $project->participants->contains($user);
-
-
 });
