@@ -34,6 +34,21 @@ Route::get('/fire', function () {
     return 'fired';
 });
 
+Route::get('/base', function () {
+    return view('test.base');
+});
+Route::get('/load-component', function () {
+    $data=[
+        'component'=>'test2',
+        'endPoint' =>route('home'),
+        'payload'  =>[
+            'foo'=>'bar',
+            'baz' =>'zoo',
+        ]
+        ];
+    return $data;
+});
+
 //auth()->loginUsingId(2);
 Route::get('/', function () {
     //event(new OrderStatusUpdated::class);
