@@ -23,14 +23,14 @@
             </div>
         </div>
         </div>
-    <div id="lottie" class="w-full h-full hidden md:block"></div>
+    <div id="lottie" class="w-full h-screen hidden md:block"></div>
 
      <script>
         var animation = bodymovin.loadAnimation({
             container: document.getElementById('lottie'), // Required
-            path: 'js/errors/data.json', // Required
+            path: 'js/errors/motorcycle.json', // Required
             renderer: 'svg', // Required
-            loop: false, // Optional
+            loop: true, // Optional
             autoplay: true, // Optional
             name: "404", // Name for future reference. Optional.
         })
