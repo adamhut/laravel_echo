@@ -2,6 +2,7 @@
 
 use App\Order;
 use App\Project;
+use App\Broadcasting\ProjectChannel;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,6 @@ Broadcast::channel('tasks.{project}', function ($user,Project $project) {
     
     return $project->participants->contains($user);
 });
+
+//to
+Broadcast::channel('tasks.{project}', ProjectChannel::class);
